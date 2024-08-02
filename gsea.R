@@ -1,0 +1,44 @@
+if (!("clusterProfiler" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  BiocManager::install("clusterProfiler", update = FALSE)
+}
+
+if (!("msigdbr" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  BiocManager::install("msigdbr", update = FALSE)
+}
+
+if (!("org.Mm.eg.db" %in% installed.packages())) {
+  # Install this package if it isn't installed yet
+  BiocManager::install("org.Mm.eg.db", update = FALSE)
+}
+# Attach the library
+library(clusterProfiler)
+
+# Package that contains MSigDB gene sets in tidy format
+library(msigdbr)
+
+# Human annotation package we'll use for gene identifier conversion
+library(org.Mm.eg.db)
+
+# We will need this so we can use the pipe: %>%
+library(magrittr)
+
+# Check if the results file exists
+dge_results_file <- "/home/direnc/results/tim/rnaseq_mice/nr_nrt/differential_abundance/tables/differential/condition_control_treated.deseq2.results.tsv"
+print("asd")
+file.exists(dge_results_file)
+# Read in the contents of the differential expression results file
+dge_df <- readr::read_tsv(dge_results_file)
+# Read in the contents of the differential expression results file
+dge_df <- readr::read_tsv(dge_results_file)
+library("msigdbr")
+mm_hallmark_sets <- msigdbr(
+  species = "Mus musculus", # Replace with species name relevant to your data
+  category = "H"
+)
+# msigdbr_species()
+all_gene_sets <- msigdbr(species = "Mus musculus")
+colnames(dge_df)[1] <- "gene_symbol"
+
+keytypes(org.Mm.eg.db)
